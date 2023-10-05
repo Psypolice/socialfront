@@ -1,0 +1,70 @@
+<div class="login-page">
+    <h2>Registration</h2>
+    <form [formGroup]="regForm">
+        <div>
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email address</mat-label>
+                    <input matInput
+                           formControlName="email">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput
+                           formControlName="username">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput
+                           formControlName="firstname">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput
+                           formControlName="lastname">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Bio</mat-label>
+                    <input matInput
+                           formControlName="bio">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput
+                           formControlName="password" type="password">
+                </mat-form-field>
+            </div>
+
+            <div class="justify-content-center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput
+                           formControlName="confirmPassword" type="password">
+                </mat-form-field>
+            </div>
+
+            <div id="controls" class="row">
+                <button style="width: 20%" [disabled]="regForm.invalid" (click)="submit()" mat-flat-button
+                        color="primary">
+                    Register
+                </button>
+                <a routerLink="/login">I am already have account</a>
+            </div>
+        </div>
+    </form>
+</div>
