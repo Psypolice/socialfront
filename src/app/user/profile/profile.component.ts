@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     dialogUserEditConfig.width = '500px';
     dialogUserEditConfig.data = {
       user: this.user
-    }
+    };
     this.dialog.open(EditUserComponent, dialogUserEditConfig);
   }
 
