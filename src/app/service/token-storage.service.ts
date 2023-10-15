@@ -17,8 +17,7 @@ export class TokenStorageService {
   }
 
   public getToken(): string {
-    const token = sessionStorage.getItem(TOKEN_KEY);
-    return token!;
+    return sessionStorage.getItem(TOKEN_KEY)!;
   }
 
   public saveUser(user: any): void {
@@ -27,8 +26,7 @@ export class TokenStorageService {
   }
 
   public getUser(): any {
-    const user = sessionStorage.getItem(USER_KEY);
-    return JSON.parse(user!);
+    return JSON.parse(sessionStorage.getItem(USER_KEY)!);
   }
 
   logout(): any {
