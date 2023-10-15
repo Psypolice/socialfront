@@ -2,11 +2,15 @@
     <h2>Registration</h2>
     <form [formGroup]="regForm">
         <div>
-            <div class="justify-content-center">
+
+            <div class="form-group">
                 <mat-form-field appearance="outline">
                     <mat-label>Email address</mat-label>
                     <input matInput
-                           formControlName="email">
+                           placeholder="pet@example.com"
+                           formControlName="email"
+                           />
+                  <div class="error"></div>
                 </mat-form-field>
             </div>
 
@@ -36,17 +40,12 @@
 
             <div class="justify-content-center">
                 <mat-form-field appearance="outline">
-                    <mat-label>Bio</mat-label>
-                    <input matInput
-                           formControlName="bio">
-                </mat-form-field>
-            </div>
-
-            <div class="justify-content-center">
-                <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
                     <input matInput
-                           formControlName="password" type="password">
+                           formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </mat-form-field>
             </div>
 
@@ -54,13 +53,13 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Confirm Password</mat-label>
                     <input matInput
-                           formControlName="confirmPassword" type="password">
+                           formControlName="confirmPassword" [type]="hide ? 'password' : 'text'">
                 </mat-form-field>
             </div>
 
             <div id="controls" class="row">
-                <button style="width: 20%" [disabled]="regForm.invalid" (click)="submit()" mat-flat-button
-                        color="primary">
+                <button style="width: 20%" [disabled]="regForm.invalid" mat-flat-button
+                        color="primary" (click)="onSubmit()">
                     Register
                 </button>
                 <a routerLink="/login">I am already have account</a>

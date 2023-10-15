@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {NotificationService} from "../../service/notification.service";
 import {Router} from "@angular/router";
@@ -8,11 +8,20 @@ import {AuthService} from "../../service/auth.service";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
 
-  public regForm!: FormGroup;
+  public regForm: FormGroup = new FormGroup({
+    email: new FormControl(''),
+    username: new FormControl(''),
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl('')
+  });
+  submitted = false;
+  hide = true;
 
   constructor(
     private authService: AuthService,
@@ -32,16 +41,25 @@ export class RegisterComponent implements OnInit {
   createRegisterForm(): FormGroup {
     return this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      username: ['', Validators.compose([Validators.required])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
       firstname: ['', Validators.compose([Validators.required])],
       lastname: ['', Validators.compose([Validators.required])],
-      bio: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       confirmPassword: ['', Validators.compose([Validators.required])],
-    })
+    });
   }
 
-  submit(): void {
+  get f(): { [key: string]: AbstractControl } {
+    return this.regForm.controls;
+  }
+
+  onSubmit(): void {
+    this.submitted = true;
+
+    if (this.regForm.invalid) {
+      return;
+    }
+
     console.log(this.regForm.value)
 
     this.authService.register({
@@ -67,5 +85,11 @@ export class RegisterComponent implements OnInit {
         this.notificationService.showSnackBar('Something went wrong during registration');
       }
     });
+  }
+
+  getErrorMessage() {
+    return this.regForm.controls['email'].hasError('required') ? 'You must enter a value' :
+      this.regForm.controls['email'].hasError('email') ? 'Not a valid email' :
+        '' ;
   }
 }
